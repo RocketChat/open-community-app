@@ -1,0 +1,15 @@
+{
+    "id": "85b79424-87a1-4e7c-a4ff-7dfae6b6187c",
+    "version": "0.0.1",
+    "requiredApiVersion": "^1.4.0",
+    "iconFile": "icon.png",
+    "author": {
+        "name": "Open Source Chapter",
+        "homepage": "https://github.com/RocketChat/open-community-app",
+        "support": "https://github.com/RocketChat/open-community-app/issues"
+    },
+    "name": "Open Community App",
+    "nameSlug": "open-community-app",
+    "classFile": "OpenCommunityAppApp.ts",
+    "description": "rocket.chat app for managing our community pull requests over at open.rocket.chat"
+}
