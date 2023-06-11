@@ -1,0 +1,37 @@
+volumes:
+    mongodb_data: { driver: local }
+
+services:
+    rocketchat:
+        image: registry.rocket.chat/rocketchat/rocket.chat:${RELEASE:-latest}
+        restart: always
+        environment:
+            MONGO_URL: "mongodb://localhost:27017/local?replicaSet=rs0"
+            MONGO_OPLOG_URL: "mongodb://localhost:27017/local?replicaSet=rs0"
+            ROOT_URL: ${ROOT_URL:-http://localhost:3000}
+            PORT: 3000
+            ADMIN_USERNAME: rocketchat
+            ADMIN_PASS: rocketchat
+            ADMIN_EMAIL: rocketchat@localhost.localdomain
+            OVERWRITE_SETTING_Show_Setup_Wizard: completed
+            OVERWRITE_SETTING_Apps_Framework_Development_Mode: "true"
+        depends_on:
+            - mongodb
+        ports:
+            - 3000:3000
+
+    mongodb:
+        image: docker.io/bitnami/mongodb:${MONGODB_VERSION:-5.0}
+        restart: always
+        ports:
+            - 27027:27017
+        volumes:
+            - mongodb_data:/bitnami/mongodb
+        environment:
+            MONGODB_REPLICA_SET_MODE: primary
+            MONGODB_REPLICA_SET_NAME: rs0
+            MONGODB_PORT_NUMBER: 27017
+            MONGODB_INITIAL_PRIMARY_HOST: localhost
+            MONGODB_INITIAL_PRIMARY_PORT_NUMBER: 27017
+            MONGODB_ADVERTISED_HOSTNAME: localhost
+            ALLOW_EMPTY_PASSWORD: "yes"

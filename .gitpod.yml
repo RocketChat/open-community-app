@@ -1,0 +1,17 @@
+tasks:
+    - name: start rocket.chat server
+      command: ROOT_URL=$(gp url 3000) docker compose up -d
+    - name: install apps cli
+      command: npm install @rocket.chat/apps-cli -g
+
+ports:
+    - port: 3000
+      visibility: public
+    - port: 27027 # hello mongo
+      visibility: public
+
+vscode:
+    extensions:
+        - ms-vscode.vscode-typescript-next
+        - esbenp.prettier-vscode
+        - gruntfuggly.todo-tree
